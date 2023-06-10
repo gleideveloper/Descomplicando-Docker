@@ -10,9 +10,9 @@ alias dcr="docker container run" <br>
 <p>
 Solução porta em uso: você pode usar o comando sudo lsof -i :5432 para identificar o processo que está usando a porta e, em seguida, usar o comando sudo kill <PID> para encerrar o processo pelo seu ID.
 </p>
-
+  
 ## paramentro '-P' associa o container com a porta exposta no Dockerfile
-
+  
 dcr -ti -P
 
 ## caso não tem a porta defina no Dockerfile usa-se:
@@ -25,16 +25,16 @@ FROM debian
 
 RUN apt-get update && apt-get install -y apache2
 
-ENV APACHE_LOCK_DIR="/var/lock" `<br>`
-ENV APACHE_PID_FILE="/var/run/apache2.pid" `<br>`
-ENV APACHE_RUN_USER="/www-data" `<br>`
-ENV APACHE_RUN_GROUP="/www-data" `<br>`
-ENV APACHE_LOG_DIR="/var/log/apache2" `<br>`
+ENV APACHE_LOCK_DIR="/var/lock" <br>
+ENV APACHE_PID_FILE="/var/run/apache2.pid" <br>
+ENV APACHE_RUN_USER="/www-data" <br>
+ENV APACHE_RUN_GROUP="/www-data" <br>
+ENV APACHE_LOG_DIR="/var/log/apache2" <br>
 
-LABEL description="Webserver" `<br>`
-LABEL version="1.0.0" `<br>`
-VOLUME [ "/var/www/html" ] `<br>`
-EXPOSE 80 `<br>`
+LABEL description="Webserver" <br>
+LABEL version="1.0.0" <br>
+VOLUME [ "/var/www/html" ] <br>
+EXPOSE 80 <br>
 
 ## criando bando mysql com docker
 
@@ -83,13 +83,14 @@ dc create -v /opt/giropops/:/giropops --name dbdados centos
 ## como era feito a associação entre container => volume.
 
 dc create -v /data --name dbdados centos
-dcr -d
---name psql
--p 5432:5432
---volumes-from dbdados
--e POSTGRESQL_USER=docker
--e POSTGRESQL_PASS=docker
--e POSTGRESQL_DB=loja-virtual
+
+dcr -d \
+--name psql \
+-p 5432:5432 \
+--volumes-from dbdados \
+-e POSTGRESQL_USER=docker \
+-e POSTGRESQL_PASS=docker \
+-e POSTGRESQL_DB=loja-virtual \
 kamui/postgresql
 
 ## como é feito hoje a associação entre container => volume.
