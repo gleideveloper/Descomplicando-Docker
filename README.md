@@ -1,10 +1,14 @@
 # Tutorial principais comandos de Docker
 
 ## Alias 
-alias dc="docker container"
-alias di="docker image"
-alias dv="docker volume"
-alias dcr="docker container run"
+
+alas dc="docker container" <br>
+alias di="docker image" <br>
+alias dv="docker volume" <br>
+alias dcr="docker container run" <br>
+<p>
+Solução porta em uso: você pode usar o comando sudo lsof -i :5432 para identificar o processo que está usando a porta e, em seguida, usar o comando sudo kill <PID> para encerrar o processo pelo seu ID.
+</p>
 
 ## criando bando mysql com docker
 
@@ -54,8 +58,6 @@ dc create -v /opt/giropops/:/giropops --name dbdados centos
 
 dc create -v /data --name dbdados centos
 dcr -d -p 5432:5432 --name psql1 --volumes-from dbdados -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=loja-virtual kamui/postgresql
-
-## solução porta em uso: você pode usar o comando sudo lsof -i :5432 para identificar o processo que está usando a porta e, em seguida, usar o comando sudo kill <PID> para encerrar o processo pelo seu ID.
 
 ## como é feito hoje a associação entre container => volume.
 
