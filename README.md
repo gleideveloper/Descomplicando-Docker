@@ -101,13 +101,12 @@ dc create -v /opt/giropops/:/giropops --name dbdados centos
 ```bash
 dc create -v /data --name dbdados centos
 
-dcr -d
---name psql
--p 5432:5432
---volumes-from dbdados
--e POSTGRESQL_USER=docker
--e POSTGRESQL_PASS=docker
--e POSTGRESQL_DB=loja-virtual
+dcr -d --name psql \
+-p 5432:5432 \
+--volumes-from dbdados \
+-e POSTGRESQL_USER=docker \
+-e POSTGRESQL_PASS=docker \
+-e POSTGRESQL_DB=loja-virtual \
 kamui/postgresql
 ```
 
@@ -116,8 +115,7 @@ kamui/postgresql
 ```bash
 dv create dbdados
 
-dcr -d
---name psql1
+dcr -d --name psql1
 --mount type=volume,src=dbdados,dst=/data
 -p 5432:5432
 -e POSTGRESQL_USER=lv_user
