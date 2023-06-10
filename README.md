@@ -2,10 +2,10 @@
 
 ## Alias
 
-> alas dc="docker container"
-> alias di="docker image"
-> alias dv="docker volume"
-> alias dcr="docker container run"
+alas dc="docker container" <br>
+alias di="docker image" <br>
+alias dv="docker volume" <br>
+alias dcr="docker container run" <br>
 
 <p>
 Solução porta em uso: você pode usar o comando sudo lsof -i :5432 para identificar o processo que está usando a porta e, em seguida, usar o comando sudo kill <PID> para encerrar o processo pelo seu ID.
