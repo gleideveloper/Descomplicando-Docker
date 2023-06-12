@@ -36,7 +36,7 @@ VOLUME [ "/var/www/html" ]
 EXPOSE 80
 ```
 
-### criando bando mysql com docker
+### Criando bando mysql com docker
 
 ```bash
 dcr -d --name mysql-lv \
@@ -48,7 +48,7 @@ dcr -d --name mysql-lv \
 mysql:latest
 ```
 
-### criando bando postgreSql com docker
+### Criando bando postgreSql com docker
 
 ```bash
 dcr -d --name psql-lv\
@@ -60,7 +60,7 @@ dcr -d --name psql-lv\
 kamui/postgresql
 ```
 
-### rodar um container
+### Rodar um container
 
 ```bash
 dcr -it hashContainer
@@ -69,34 +69,50 @@ dc exec -ti hashContainer bash
 dc exec -ti hashContainer ls -l /usr/share |grep mysql
 ```
 
-### criando volume do type bind
+### Criando volume do type bind
 
 ```bash
 mkdir /opt/giropops
 dcr -ti --mount type=bind,src=/opt/giropops,dst=/giropops debian
 ```
 
-### criando volume do type volume
+### Criando volume do type volume
 
 ```bash
 dv create nomeVolume
 dcr -ti --mount type=volume,src=giropops,dst=/giropops debian
 ```
 
-### remove all stopped volume/container
+### Remove container/volume/image
 
 ```bash
+Remove all stopped container/volume/image
 dc prune
+di prune
 dv prune
+#
+docker kill $(docker ps -q)
+#
+dc rm $(dc ls -a -q)
+#
+dc rm $(dc ls -a -q --filter 'ancestor=debian')
+#
+dc rm -f $(dc ls -a  -q --filter 'ancestor=toskeira:1.0')
+#
+di rmi $(di ls -q)
+di rm $(di ls -q --filter "reference=myrepo")
+#
+dv rm $(dv ls -q)
+
 ```
 
-### data in container: como era feito a criação antigamente
+### Data in container: como era feito a criação antigamente
 
 ```bash
 dc create -v /opt/giropops/:/giropops --name dbdados centos
 ```
 
-### como era feito a associação entre container => volume.
+### Como era feito a associação entre container => volume.
 
 ```bash
 dc create -v /data --name dbdados centos
@@ -110,7 +126,7 @@ dcr -d --name psql \
 kamui/postgresql
 ```
 
-### como é feito hoje a associação entre container => volume.
+### Como é feito hoje a associação entre container => volume.
 
 ```bash
 dv create dbdados
@@ -124,7 +140,7 @@ dcr -d --name psql1
 kamui/postgresq
 ```
 
-### criando um container para fazer um backup
+### Criando um container para fazer um backup
 
 ```bash
 dcr -ti
@@ -133,10 +149,10 @@ dcr -ti
 debian tar -cvf /backup/bkp-banco.tar /data
 ```
 
-### como executar o Dockerfile na pasta do arquivo e gerar um imagem
+### Como executar o Dockerfile na pasta do arquivo e gerar uma imagem
 
 ```bash
 di build -t my-apache:1.0 .
 ```
 
-### ENTRYPOINT=> É o principal processo do container
+### Entrypoint: É o principal processo do container
